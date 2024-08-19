@@ -4,8 +4,9 @@
 
 echo "Exporting variables from Secrets Manager"
 
-# Get all Key Value pairs of the secret
-SECRETS_JSON=$(aws secretsmanager get-secret-value \
+# Get all Key Value pairs of the secret 
+# setting LD_LIBRARY_PATH="" before running the command as a workaround. see: https://github.com/aws/aws-lambda-base-images/issues/137
+SECRETS_JSON=$(LD_LIBRARY_PATH="" aws secretsmanager get-secret-value \
   --region ${REGION} \
   --secret-id ${SECRET_PATH} \
   --query 'SecretString' \
